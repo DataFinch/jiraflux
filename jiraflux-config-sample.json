@@ -1,0 +1,73 @@
+{
+  "jira": {
+    "username": "user",
+    "password": "password",
+    "protocol": "http",
+    "host": "host.for.jira",
+    "apiVersion": 2,
+    "strictSSL": false
+  },
+  "influxdb": {
+    "username": "admin",
+    "password": "admin",
+    "database": "jira",
+    "host": "host.for.influx"
+  },
+  "schema": [{
+      "measurement": "Bugs",
+      "fields": {
+        "total": "Influx.FieldType.INTEGER"
+      },
+      "tags": [
+        "status",
+        "project",
+        "source"
+      ]
+    },
+    {
+      "measurement": "In Development",
+      "fields": {
+        "total": "Influx.FieldType.INTEGER"
+      },
+      "tags": [
+        "stage",
+        "project",
+        "source"
+      ]
+    },
+    {
+      "measurement": "Tickets",
+      "fields": {
+        "total": "Influx.FieldType.INTEGER"
+      },
+      "tags": [
+        "project",
+        "release",
+        "status"
+      ]
+    }
+  ],
+  "metrics": [{
+      "jql": "project = projectname AND issuetype = Bug AND status = Open",
+      "desc": "Open Bugs",
+      "minutes": 30,
+      "measurement": "Bugs",
+      "fields": ["total"],
+      "tags": {
+        "project": "Project",
+        "status": "Open"
+      }
+    },
+    {
+      "jql": "project = projectname AND issuetype = Bug AND status in (\"In Development\", \"In QA\", \"Requires More Info\")",
+      "desc": "Project: In Progress Bugs",
+      "minutes": 30,
+      "measurement": "Bugs",
+      "fields": ["total"],
+      "tags": {
+        "project": "Project",
+        "status": "In Progress"
+      }
+    }
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "name": "jiraflux",
+  "version": "1.0.0",
+  "description": "JIRA stats to InfluxDB",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "jira",
+    "influxdb"
+  ],
+  "author": "Kevin Carlson",
+  "license": "ISC",
+  "dependencies": {
+    "influx": "^5.0.7",
+    "jira-client": "^6.4.1",
+    "request": "^2.87.0"
+  }
+}
