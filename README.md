@@ -2,6 +2,8 @@
 
 JiraFlux is an open-source node application that runs JIRA jql queries and inserts data into InfluxDB. Originally developed at DataFinch Technologies, we use it for gathering key metrics from JIRA and displaying those metrics on Grafana dashboards.
 
+![DataFinch Logo](http://www.datafinch.com/Content/img/logo.png)
+
 ## Author
 
 Kevin Carlson
@@ -50,7 +52,6 @@ This section contains the infomation necessary to connect to a JIRA instance.
   }
 ```
 
-
 ### influx
 
 Contiains info necessary for connecting to InfluxDB. Currently JiraFlux supports only one Influx database. This may be changed in the future.
@@ -71,13 +72,13 @@ Describes the schema for the InfluxDB database. More info on InfluxDB schemas is
 
 ```js
 
-schema: {
+schema: [{
       "measurement": "Bugs",  // measurement name in the InfluxDB database
       "fields": {
         "total": "Influx.FieldType.INTEGER"  // the data type for the measurement as a string
       },
       "tags": [
-        "status", 
+        "status",
         "project",
         "source"
       ]
@@ -94,7 +95,7 @@ schema: {
       ]
     },
     ... // other entries
-}
+]
 
 ```
 
@@ -103,7 +104,7 @@ Note: The InfluxDB documentation for schemas show the types as unquoted (`Influx
 ### metrics
 
 ```js
-metrics:   {
+metrics: [{
       "jql": "project = projectname AND issuetype = Bug AND status in (Open, \"In QA\")",
       "desc": "Project: In Progress Bugs",
       "minutes": 30, // how often to run this query
@@ -114,7 +115,8 @@ metrics:   {
         "status": "In Progress"
       }
     }, ... // additional metrics entries
+]
+
 ```
 
-IMPORTANT: Any multiword projects, status, or other arguments in the jql parameter must be contained in escaped quotation marks `\"` as in above example. 
-
+IMPORTANT: Any multi-word project names, status, or other arguments in the jql parameter must be contained in escaped quotation marks `\"` as in above example.

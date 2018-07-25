@@ -1,12 +1,11 @@
-var configuration = require("./config");
 var _timerList = [];
 
 exports.createIntervalTimers = createIntervalTimers;
 exports.clearIntervalTimers = clearIntervalTimers;
 
-function createIntervalTimers(callback) {
+function createIntervalTimers(config, callback) {
   var timerID;
-  configuration.get().metrics.forEach(function(metric) {
+  config.metrics.forEach(function(metric) {
     var millis = metric.minutes * 60 * 1000;
     timerID = setInterval(callback, millis, metric);
     _timerList.push(timerID);

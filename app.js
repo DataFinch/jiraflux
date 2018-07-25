@@ -5,7 +5,6 @@ const timers = require('./timers');
 const emitter = require('./jfEmitter');
 
 var config = configuration.load();
-// var config = configuration.get();
 
 const jira = new JiraApi({
   protocol: config.jira.protocol,
@@ -24,11 +23,11 @@ const influx = new Influx.InfluxDB({
   schema: config.schema
 });
 
-timers.createIntervalTimers(getMetrics);
+timers.createIntervalTimers(config, getMetrics);
 
 emitter.get().on('configChange', () => {
   timers.clearIntervalTimers();
-  timers.createIntervalTimers(getMetrics);
+  timers.createIntervalTimers(configuration.get(), getMetrics);
 });
 
 function getMetrics(metric) {

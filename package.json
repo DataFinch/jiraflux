@@ -11,7 +11,7 @@
     "jira",
     "influxdb"
   ],
-  "author": "Kevin Carlson",
+  "author": "DataFinch Technologies, Kevin Carlson",
   "license": "ISC",
   "dependencies": {
     "influx": "^5.0.7",
