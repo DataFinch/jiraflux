@@ -1,10 +1,13 @@
-var JiraApi = require('jira-client');
+const JiraApi = require('jira-client');
 const Influx = require('influx');
-var configuration = require("./config");
+var configuration = require('./config');
 const timers = require('./timers');
 const emitter = require('./jfEmitter');
+const logger = require('./logger').log;
 
 var config = configuration.load();
+
+logger.info("JiraFlux starting...");
 
 const jira = new JiraApi({
   protocol: config.jira.protocol,
@@ -15,15 +18,23 @@ const jira = new JiraApi({
   strictSSL: config.jira.strictSSL
 });
 
+logger.info("Connected to Jira @ %s", config.jira.host);
+
 const influx = new Influx.InfluxDB({
   host: config.influxdb.host,
+  port: config.influxdb.port,
+  protocol: config.influxdb.protocol,
   database: config.influxdb.database,
   username: config.influxdb.username,
   password: config.influxdb.password,
   schema: config.schema
 });
 
+logger.info("Connected to Influx @ %s", config.influxdb.host);
+
 timers.createIntervalTimers(config, getMetrics);
+
+logger.info("Jiraflux started.")
 
 emitter.get().on('configChange', () => {
   timers.clearIntervalTimers();
@@ -41,14 +52,14 @@ function getMetrics(metric) {
           fields: mapData
         }], { database: config.influxdb.database })
         .then(result => {
-          console.log("Written: " + metric.desc);
+          logger.info("Written: " + metric.desc);
         })
         .catch(err => {
-          console.error("Error saving data to InfluxDB!", err);
+          logger.error("Error saving data to InfluxDB!", err);
         });
     })
     .catch((error) => {
-      console.error(error);
+      logger.error(error);
     });
 
 }

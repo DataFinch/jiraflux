@@ -62,9 +62,35 @@ Contiains info necessary for connecting to InfluxDB. Currently JiraFlux supports
     "username": "admin",  // user name with write access to the InfluxDB database listed in this config
     "password": "admin",  
     "database": "jira",  // the database in which to store all JIRA measurements
+    "protocol": "https", // or http
+    "port": "8086",
     "host": "host.for.influx"  // host name where Influx lives
   }
 ```
+
+### logger
+
+Defines the settings for logging to a file and to the console. If changes to the configuration file are made, the logger is reconfigured on the fly.
+
+```js
+  "logger": {
+    "consoleLogLevel": "info", // see below for log levels
+    "fileLogLevel": "debug", // see below for log levels
+    "filename": ""  // if left undefined or empty, no log file will be used
+  },
+```
+
+Logger uses [Winston](https://www.npmjs.com/package/winston), which defines the following log levels.
+
+{   error: 0,
+    warn: 1,
+    info: 2,
+    verbose: 3,
+    debug: 4,
+    silly: 5
+}
+
+For more info on log levels, see [Winston](https://www.npmjs.com/package/winston) documentation.
 
 ### schema
 

@@ -7,15 +7,20 @@
     "start": "node app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/khcarlso/jiraflux.git"
+  },
   "keywords": [
     "jira",
     "influxdb"
   ],
-  "author": "DataFinch Technologies, Kevin Carlson",
-  "license": "ISC",
+  "author": "Kevin Carlson, DataFinch Technologies",
+  "license": "MIT",
   "dependencies": {
     "influx": "^5.0.7",
     "jira-client": "^6.4.1",
-    "request": "^2.87.0"
+    "request": "^2.87.0",
+    "winston": "^3.0.0"
   }
 }

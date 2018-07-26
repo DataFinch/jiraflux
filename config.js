@@ -19,7 +19,7 @@ exports.load = function() {
     var configText = fs.readFileSync(_configFileName);
     _configInfo = JSON.parse(configText);
   } catch (e) {
-    console.log(e);
+    logger.error(e);
   }
 
   _configInfo.schema = retypeSchema(_configInfo.schema);
@@ -44,6 +44,11 @@ function retypeSchema(s) {
 
 
 fs.watchFile(_configFileName, (curr, prev) => {
+  logger.warn("Configuration file changed. Reloading.");
   exports.load();
   emitter.get().emit('configChange');
 });
+
+// has to remain at the bottom of the file to resolve load conflicts
+// since logger and config are interdependent
+const logger = require('./logger.js').log;
