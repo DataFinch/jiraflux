@@ -31,7 +31,7 @@ const influx = new Influx.InfluxDB({
 });
 
 logger.info("Connected to Influx @ %s", config.influxdb.host);
-
+ensureDB(config);
 timers.createIntervalTimers(config, getMetrics);
 
 logger.info("Jiraflux started.")
@@ -70,4 +70,21 @@ function destructure(object, attributes) {
     newObj[attribute] = object[attribute];
   });
   return newObj;
+}
+
+function ensureDB(config) {
+  influx.getDatabaseNames()
+    .then((names) => {
+      if (names.indexOf(config.influxdb.database) == -1) {
+        influx.createDatabase(config.influxdb.database)
+          .then(() => {
+            logger.info("InfluxDB database created with name %s", config.influxdb.database);
+          })
+          .catch((err) => {
+            logger.error("Error createing InfluxDB database.");
+          })
+      } else {
+        logger.info("InfluxDB database '%s' exists -- using.", config.influxdb.database);
+      }
+    })
 }
