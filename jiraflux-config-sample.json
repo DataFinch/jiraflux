@@ -11,7 +11,14 @@
     "username": "admin",
     "password": "admin",
     "database": "jira",
+    "protocol": "http",
+    "port": "8086",
     "host": "host.for.influx"
+  },
+  "logger": {
+    "consoleLogLevel": "info",
+    "fileLogLevel": "debug",
+    "filename": ""
   },
   "schema": [{
       "measurement": "Bugs",
