@@ -78,7 +78,7 @@ function ensureDB(config) {
       if (names.indexOf(config.influxdb.database) == -1) {
         influx.createDatabase(config.influxdb.database)
           .then(() => {
-            logger.info("InfluxDB database created with name %s", config.influxdb.database);
+            logger.info("InfluxDB database '%s' created.", config.influxdb.database);
           })
           .catch((err) => {
             logger.error("Error createing InfluxDB database.");
