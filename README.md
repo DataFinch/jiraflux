@@ -19,7 +19,7 @@ The app is driven by a configuration file (jiraflux-config.json) that contains v
 * Run jql queries on various user-defined intervals
 * Write measurements to InfluxDB with given tags and fields
 
-The application also watches for changes in the configuration file that affect the [metrics](#metrics) section and will automatically adjust queries, timing and InfluxDB writes. If configuration changes need to be made to the JIRA or InfluxDB connections, the application needs to be restarted manually (at least it does now).
+The application also watches for changes in the configuration file that affect the [metrics](#metrics) and [logging](#logging) sections and will automatically adjust queries, timing, InfluxDB writes, and logging. If configuration changes need to be made to the JIRA or InfluxDB connections, the application needs to be restarted manually (at least it does now).
 
 ## Install
 
