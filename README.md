@@ -23,7 +23,7 @@ The application also watches for changes in the configuration file that affect t
 
 ## Install
 
-git clone this repository
+git clone https://github.com/DataFinch/jiraflux.git
 `npm install`
 Create a [configuration file](#configuration)
 
