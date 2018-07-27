@@ -6,12 +6,11 @@ JiraFlux is an open-source node application that runs JIRA jql queries and inser
 
 ## Author
 
-Kevin Carlson
-kcarlson@datafinch.com
+[Kevin Carlson](mailto:kcarlson@datafinch.com)
 
 ## Features
 
-The app is driven by a configuration file (jiraflux-config.json) that contains various pieces of infomration required to:
+The app is driven by a configuration file (jiraflux-config.json) that contains various pieces of information required to:
 
 * Connect to a JIRA instance
 * Connect to InfluxDB instance
@@ -39,7 +38,7 @@ Each section of the configuration file is explained below.
 
 ### jira
 
-This section contains the infomation necessary to connect to a JIRA instance.
+This section contains the information necessary to connect to a JIRA instance.
 
 ```js
   "jira": {
@@ -54,7 +53,7 @@ This section contains the infomation necessary to connect to a JIRA instance.
 
 ### influx
 
-Contiains info necessary for connecting to InfluxDB. Currently JiraFlux supports only one Influx database. This may be changed in the future.
+Contains info necessary for connecting to InfluxDB. Currently JiraFlux supports only one Influx database. This may be changed in the future.
 
 ```js
 
@@ -82,6 +81,7 @@ Defines the settings for logging to a file and to the console. If changes to the
 
 Logger uses [Winston](https://www.npmjs.com/package/winston), which defines the following log levels.
 
+```js
 {   error: 0,
     warn: 1,
     info: 2,
@@ -89,6 +89,7 @@ Logger uses [Winston](https://www.npmjs.com/package/winston), which defines the 
     debug: 4,
     silly: 5
 }
+```
 
 For more info on log levels, see [Winston](https://www.npmjs.com/package/winston) documentation.
 
