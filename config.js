@@ -44,7 +44,7 @@ function retypeSchema(s) {
 
 
 fs.watchFile(_configFileName, (curr, prev) => {
-  logger.warn("Configuration file changed. Reloading.");
+  logger.warn("Configuration file changed.");
   exports.load();
   emitter.get().emit('configChange');
 });

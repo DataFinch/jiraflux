@@ -37,11 +37,13 @@ timers.createIntervalTimers(config, getMetrics);
 logger.info("Jiraflux started.")
 
 emitter.get().on('configChange', () => {
+  logger.verbose("EVENT: Configuration file changed");
   timers.clearIntervalTimers();
   timers.createIntervalTimers(configuration.get(), getMetrics);
 });
 
 function getMetrics(metric) {
+  logger.verbose("Task Started: %s", metric.desc);
   jira.searchJira(metric.jql)
     .then((data) => {
       var mapData = destructure(data, metric.fields);
@@ -61,7 +63,7 @@ function getMetrics(metric) {
     .catch((error) => {
       logger.error(error);
     });
-
+  logger.verbose("Task Finished: %s", metric.desc);
 }
 
 function destructure(object, attributes) {
@@ -78,13 +80,13 @@ function ensureDB(config) {
       if (names.indexOf(config.influxdb.database) == -1) {
         influx.createDatabase(config.influxdb.database)
           .then(() => {
-            logger.info("InfluxDB database '%s' created.", config.influxdb.database);
+            logger.verbose("InfluxDB database '%s' created.", config.influxdb.database);
           })
           .catch((err) => {
             logger.error("Error createing InfluxDB database.");
           })
       } else {
-        logger.info("InfluxDB database '%s' exists -- using.", config.influxdb.database);
+        logger.verbose("InfluxDB database '%s' exists -- using.", config.influxdb.database);
       }
     })
 }

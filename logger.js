@@ -19,15 +19,19 @@ function configureLogger() {
 
   var logOptions = {
     level: config.logger.consoleLogLevel,
-    format: winston.format.combine(winston.format.splat(), winston.format.json()),
+    // format: winston.format.combine(winston.format.splat(), winston.format.simple()),
     transports: [
-      new winston.transports.Console()
+      new winston.transports.Console({ format: winston.format.combine(winston.format.splat(), winston.format.simple()) })
     ],
     exitOnError: false
   };
 
   if (config.logger.filename) {
-    logOptions.transports.push(new winston.transports.File({ filename: config.logger.filename, level: config.logger.fileLogLevel }));
+    logOptions.transports.push(new winston.transports.File({
+      filename: config.logger.filename,
+      level: config.logger.fileLogLevel,
+      format: winston.format.combine(winston.format.splat(), winston.format.json())
+    }));
   }
 
   if (_logger) {
